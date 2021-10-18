@@ -33,6 +33,7 @@
 <template>
   <div class="relative" >
     <button 
+      data-cy="modal-add-priority-dropdown"
       @click="openDropdown" 
       class="px-5 py-4 w-full rounded-lg border flex items-center justify-between"
     >
@@ -42,17 +43,18 @@
       </div>
       <ArrowDown/>
     </button>
-    <ul v-show="dropdownOpen" class="absolute top-full left-0 bg-white rounded-md divide-y border w-full" data-cy="modal-add-priority-dropdown">
+    <ul v-show="dropdownOpen" class="absolute top-full left-0 bg-white rounded-md divide-y border w-full" >
       <li 
         v-for="list of lists"
         :key="list.value"
+        data-cy="modal-add-priority-item"
         @click="handleSelect($event, list)"
         class="px-8 py-4 flex items-center gap-2 cursor-pointer "
         :class="list.value === editedTodo.priority.value
             ? 'bg-primary text-white' 
             : 'hover:bg-primary/20'
         "
-        data-cy="modal-add-priority-item"
+        
       >
         <DotPriority :priority="list.value"/>
         {{ list.title}}

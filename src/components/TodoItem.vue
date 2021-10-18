@@ -30,30 +30,32 @@ const handleUpdateActive = ({ id, is_active }:{ id: number, is_active: number })
 </script>
 
 <template>
-  <div class="grid grid-flow-col items-center justify-between w-full px-7 py-7 rounded-2xl shadow-lg text-lg font-medium bg-white" data-cy="todo-item"
+  <div data-cy="todo-item" class="grid grid-flow-col items-center justify-between w-full px-7 py-7 rounded-2xl shadow-lg text-lg font-medium bg-white" 
   >
     <div class="flex items-center gap-5">
       <button
+        data-cy="todo-item-checkbox"
         @click="handleUpdateActive({ id, is_active: is_active ? 0 : 1})"
         class="w-7 h-7 border-2  grid place-items-center text-white" 
         :class="is_active ? 'bg-primary border-white' : 'border-gray-300'"
-        data-cy="todo-item-checkbox"
+        
       >
         <CheckIcon class="w-4 h-4" v-show="is_active" />
       </button>
-      <DotPriority :priority="priority" data-cy="todo-item-priority-indicator" />
+      <DotPriority :priority="priority" />
       <p 
+        data-cy="todo-item-title"
         class="border-2 border-transparent"
         :class="is_active && 'line-through opacity-50 w-max'" 
-        data-cy="todo-item-title"
+        
       >
         {{ title }}
       </p>
-      <button @click="getEditedTodo(props.id.toString())" data-cy="todo-item-edit-button">
+      <button data-cy="todo-item-edit-button" @click="getEditedTodo(props.id.toString())" >
         <EditIcon class="w-6 h-6" />
       </button>
     </div>
-    <button @click="handleDelete" class="text-gray-400" data-cy="todo-item-delete-button">
+    <button data-cy="todo-item-delete-button" @click="handleDelete" class="text-gray-400" >
       <TrashIcon/>
     </button>
   </div>

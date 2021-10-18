@@ -20,7 +20,8 @@
 </script>
 
 <template>
-  <div 
+  <div
+    data-cy="todo-item-priority-indicator"
     class="rounded-full h-3 w-3" 
     :class="getPriorityColor()"
   >

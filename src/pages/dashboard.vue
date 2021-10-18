@@ -16,7 +16,7 @@
 <template>
   <MainLayout>
     <AppNavbar>
-      <h2 class="text-4xl font-bold" data-cy="activity-title">
+      <h2 data-cy="activity-title" class="text-4xl font-bold" >
         Activity
       </h2>
       <AppButton 
@@ -41,7 +41,7 @@
       </div>
     </main>
     <DeleteModal
-      v-show="deleteModalOpen"
+      v-i="deleteModalOpen"
       @cancel="deleteModalOpen = false"
       @delete="removeActivity"
     />
