@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref, computed } from "vue";
+  import { ref } from "vue";
   import { Priority } from "@/types";
   import { editedTodo } from "@/store/listItem";
 
@@ -14,7 +14,14 @@
 
   const dropdownOpen = ref(false)
 
+  const openDropdown = (e: any) => {
+    e.preventDefault()
+    e.stopPropagation()
+    dropdownOpen.value = !dropdownOpen.value
+  }
+
   const handleSelect = (e: any, selectedValue: Priority) => {
+    e.preventDefault()
     e.stopPropagation()
     emit('selected', selectedValue.value)
     selected.value = selectedValue
@@ -26,7 +33,7 @@
 <template>
   <div class="relative" data-cy="modal-add-priority-dropdown">
     <button 
-      @click="dropdownOpen = !dropdownOpen" 
+      @click="openDropdown" 
       class="px-5 py-4 w-full rounded-lg border flex items-center justify-between"
     >
       <div class="flex items-center gap-3">
