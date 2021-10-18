@@ -46,7 +46,6 @@
         data-cy="sort-selection"
         @click="handleSelect(sort.name)"
         class="relative px-5 py-4 flex items-center gap-2 hover:bg-primary/10 cursor-pointer"
-        
       >
         <div :data-cy="sort.name === selectedSort && 'sort-selection-selected'">
           <img data-cy="sort-selection-icon" :src="sort.icon" :alt="sort.name" >

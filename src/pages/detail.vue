@@ -78,15 +78,14 @@
       </div>
       <div class="flex items-center gap-5">
         <TodoSorter v-show="listTodo?.length !== 0"/>
-        <div data-cy="todo-add-button">
-          <AppButton 
+        <AppButton
+          data-cy="todo-add-button"
           class="bg-primary focus:ring-4 ring-primary/30" 
           @click="openAddModal"
         >
           <PlusIcon/>
           Tambah
         </AppButton>
-        </div>
       </div>
     </AppNavbar>
     <div v-if="listTodo?.length === 0" data-cy="todo-empty-state" class="grid place-items-center" >

@@ -31,7 +31,11 @@ const closeModal = () => {
 }
 
 const submitTodo = () => {
-  emit('submitTodo', { title: title.value, priority: priority.value})
+  if(title.value && priority.value) {
+    emit('submitTodo', { title: title.value, priority: priority.value})
+  } else {
+    console.log('form required');
+  }
 }
 </script>
 
@@ -73,6 +77,7 @@ const submitTodo = () => {
         <AppButton
           data-cy="modal-add-save-button"
           @click="submitTodo"
+          type="submit"
           class="w-36 grid place-items-center disabled:opacity-50 disabled:cursor-not-allowed bg-primary focus:ring-4 ring-primary/30"
           :disabled="!formValid"
         >

@@ -21,7 +21,8 @@
       <h2 data-cy="activity-title" class="text-4xl font-bold" >
         Activity
       </h2>
-      <AppButton 
+      <AppButton
+        data-cy="activity-add-button"
         class="bg-primary focus:ring-4 ring-primary/30" 
         @click="createActivity"
       >
@@ -30,8 +31,8 @@
       </AppButton>
     </AppNavbar>
     <main class="pt-2">
-      <div v-if="activities.length === 0" class="grid place-items-center">
-        <ActivityEmptyState/>
+      <div v-if="activities.length === 0" class="grid place-items-center" >
+        <img src="@/assets/images/activty-empty-state.svg" alt="activity-empty-state" data-cy="activity-empty-state">
       </div>
       <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         <ActivityCard 

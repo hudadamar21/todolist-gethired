@@ -22,7 +22,6 @@ const handleClick = (e: any) => {
     data-cy="activity-item"
     :to="`/detail/${id}`" 
     class="flex flex-col justify-between bg-white h-60 rounded-xl shadow-lg p-5"
-    
   >
     <h3 data-cy="activity-item-title" class="text-xl font-bold overflow-hidden" >
       {{ title }}
