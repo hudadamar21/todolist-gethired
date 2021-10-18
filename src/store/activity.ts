@@ -9,7 +9,7 @@ export const activities = ref<Activity[]>([])
 
 export const getActivities = async () => {
   try {
-    const { data }: { data: ActivityResponse } = await axios.get(ACTIVITY_URL)
+    const { data }: { data: ActivityResponse } = await axios.get("https://todo.api.devcode.gethired.id/activity-groups?huda@gmail.com”)
     activities.value = data.data
   } catch (error) {
     console.log(error);
