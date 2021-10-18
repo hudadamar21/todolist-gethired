@@ -1,11 +1,13 @@
 <script setup lang="ts">
-  import { toRefs, onBeforeMount } from "vue";
+  import { toRefs, onMounted } from "vue";
   import { state } from "@/store";
   import { getActivities, activities, addActivity, removeActivity } from "@/store/activity";
 
   const { deleteModalOpen } = toRefs(state)
 
-  onBeforeMount(() => getActivities())
+  onMounted(() => {
+    getActivities()
+  })
 
   const createActivity = async () => {
     await addActivity({ title: 'New Activity' })
@@ -41,7 +43,7 @@
       </div>
     </main>
     <DeleteModal
-      v-i="deleteModalOpen"
+      v-if="deleteModalOpen"
       @cancel="deleteModalOpen = false"
       @delete="removeActivity"
     />

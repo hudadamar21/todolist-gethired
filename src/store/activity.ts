@@ -3,12 +3,17 @@ import { ref } from "vue";
 import { Activity, ActivityResponse } from "@/interface";
 import { BASE_URL, clearModal, state } from "@/store";
 
-export const ACTIVITY_URL = BASE_URL + '/activity-groups/'
+const ACTIVITY_URL = BASE_URL + '/activity-groups/'
 
 export const activities = ref<Activity[]>([])
 
 export const getActivities = async () => {
-  
+  try {
+    const { data }: { data: ActivityResponse } = await axios.get(ACTIVITY_URL)
+    activities.value = data.data
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export const addActivity = (data: { title: string }) => {
@@ -37,8 +42,10 @@ export const updateActivity = (id: string, data: any) => {
 }
 
 export const removeActivity = async () => {
-  await axios.delete(ACTIVITY_URL + state.modalData.activityId)
-  state.alertMessage = 'Activity berhasil dihapus'
-  clearModal()
-  getActivities()
+  if(state.modalData.activityId) {
+    await axios.delete(ACTIVITY_URL + state.modalData.activityId)
+    state.alertMessage = 'Activity berhasil dihapus'
+    clearModal()
+    getActivities()
+  }
 }

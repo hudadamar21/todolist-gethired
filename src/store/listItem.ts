@@ -83,13 +83,15 @@ export const updateTodo = async (id: string, data: object) => {
 }
 
 export const deleteTodo = async () => {
-  await axios.delete(`${BASE_URL}/todo-items/${state.modalData.todoId}`)
-  const newData = listItemData.value?.todo_items
-    .filter(item => item.id !== state.modalData.todoId)
-  // @ts-ignore
-  listItemData.value.todo_items = newData
-  state.alertMessage = 'Todo berhasil dihapus'
-  clearModal()
+  if(state.modalData.todoId) {
+    await axios.delete(`${BASE_URL}/todo-items/${state.modalData.todoId}`)
+    const newData = listItemData.value?.todo_items
+      .filter(item => item.id !== state.modalData.todoId)
+    // @ts-ignore
+    listItemData.value.todo_items = newData
+    state.alertMessage = 'Todo berhasil dihapus'
+    clearModal()
+  }
 }
 
 export const updateListItemState = (data: ListItem, property: string) => {
