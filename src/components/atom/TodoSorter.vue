@@ -51,7 +51,7 @@
           <img :src="sort.icon" :alt="sort.name" data-cy="sort-selection-icon">
           <p data-cy="sort-selection-title">{{ sort.name }}</p>
         </div>
-        <CheckIcon v-if="sort.name === selectedSort"  class="text-black/40"/>
+        <CheckIcon v-if="sort.name === selectedSort"  class="text-black/40" data-cy="sort-selection-selected"/>
       </li>
     </ul>
   </div>

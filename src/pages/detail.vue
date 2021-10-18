@@ -12,7 +12,6 @@
     updateListItemState,
     editedTodo
   } from "@/store/listItem";
-import TodoEmptyState from "@/components/atom/TodoEmptyState.vue";
 
   const { deleteModalOpen, addItemModal } = toRefs(state)
 
@@ -72,7 +71,6 @@ import TodoEmptyState from "@/components/atom/TodoEmptyState.vue";
           type="text"
           v-model="title"
           class="text-4xl font-bold bg-transparent focus:outline-none border-b border-transparen border-gray-500 w-[80%]"
-          data-cy="todo-title"
         >
         <button v-if="!isEditTitle" @click="isEditTitle = true" data-cy="todo-title-edit-button">
           <EditIcon class="w-7 h-7"/>
@@ -93,8 +91,7 @@ import TodoEmptyState from "@/components/atom/TodoEmptyState.vue";
         </AppButton>
       </div>
     </AppNavbar>
-
-    <div v-if="listTodo?.length === 0" class="grid place-items-center">
+    <div v-if="listTodo?.length === 0" class="grid place-items-center" data-cy="todo-empty-state">
       <TodoEmptyState/>
     </div>
     <div v-else class="grid gap-3">

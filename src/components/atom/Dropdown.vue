@@ -24,7 +24,7 @@
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative" data-cy="modal-add-priority-dropdown">
     <button 
       @click="dropdownOpen = !dropdownOpen" 
       class="px-5 py-4 w-full rounded-lg border flex items-center justify-between"

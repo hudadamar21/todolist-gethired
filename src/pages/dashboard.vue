@@ -22,13 +22,14 @@
       <AppButton 
         class="bg-primary focus:ring-4 ring-primary/30" 
         @click="createActivity"
+        data-cy="activity-add-button"
       >
         <PlusIcon/>
         Tambah
       </AppButton>
     </AppNavbar>
     <main class="pt-2">
-      <div v-if="activities.length === 0" class="grid place-items-center">
+      <div v-if="activities.length === 0" class="grid place-items-center" data-cy="activity-empty-state">
         <ActivityEmptyState/>
       </div>
       <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">

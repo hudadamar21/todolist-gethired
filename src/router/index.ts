@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Dashboard from "@/pages/dashboard.vue";
-import ItemList from "@/pages/itemlist.vue";
+import dashboard from "@/pages/dashboard.vue";
+import detail from "@/pages/detail.vue";
 
 const routes = [
-  { path: '/', component: Dashboard },
-  { path: '/detail/:id', component: ItemList },
+  { path: '/', component: dashboard },
+  { path: '/detail/:id', component: detail },
 ]
 
 const router = createRouter({

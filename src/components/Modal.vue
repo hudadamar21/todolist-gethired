@@ -64,7 +64,7 @@ const submitTodo = () => {
           <label class="block font-medium mb-3" for="priority" data-cy="modal-add-priority-title">
             Priority
           </label>
-          <div class="w-1/3" data-cy="modal-add-priority-dropdown">
+          <div class="w-1/3">
             <Dropdown
               :lists="priorityList"
               @selected="handleSelected" 
