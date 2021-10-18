@@ -40,10 +40,3 @@ export const updateActivity = (id: string, data: any) => {
     }
   })
 }
-
-export const removeActivity = async () => {
-  await axios.delete(ACTIVITY_URL + state.modalData.activityId)
-  state.alertMessage = 'Activity berhasil dihapus'
-  clearModal()
-  getActivities()
-}

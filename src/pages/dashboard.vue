@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { toRefs, onMounted } from "vue";
   import { state } from "@/store";
-  import { getActivities, activities, addActivity, removeActivity } from "@/store/activity";
+  import { getActivities, activities, addActivity } from "@/store/activity";
 
   const { deleteModalOpen } = toRefs(state)
 

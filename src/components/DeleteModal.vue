@@ -1,18 +1,25 @@
 <script setup lang="ts">
 import { toRefs } from "vue";
 import { state } from "@/store";
+import axios from "axios";
 const emit = defineEmits(['cancel', 'delete'])
 const { modalData } = toRefs(state)
-import { removeActivity } from "@/store/activity";
+import { clearModal } from "@/store";
+import { getActivities } from "@/store/activity";
 import { deleteTodo } from "@/store/listItem";
 
 const props = defineProps<{
   modalName: string
 }>()
 
-const handleDelete = () => {
+const handleDelete = async () => {
   if(props.modalName === 'activity') {
-    removeActivity()
+    await axios.delete(
+      `https://todo.api.devcode.gethired.id/activity-groups/${state.modalData.activityId}`
+    )
+    state.alertMessage = 'Activity berhasil dihapus'
+    clearModal()
+    getActivities()
   } else if(props.modalName === 'todo') {
     deleteTodo()
   } else {
