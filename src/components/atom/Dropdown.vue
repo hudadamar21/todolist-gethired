@@ -31,7 +31,7 @@
 </script>
 
 <template>
-  <div class="relative" data-cy="modal-add-priority-dropdown">
+  <div class="relative" >
     <button 
       @click="openDropdown" 
       class="px-5 py-4 w-full rounded-lg border flex items-center justify-between"
@@ -42,7 +42,7 @@
       </div>
       <ArrowDown/>
     </button>
-    <ul v-show="dropdownOpen" class="absolute top-full left-0 bg-white rounded-md divide-y border w-full">
+    <ul v-show="dropdownOpen" class="absolute top-full left-0 bg-white rounded-md divide-y border w-full" data-cy="modal-add-priority-dropdown">
       <li 
         v-for="list of lists"
         :key="list.value"

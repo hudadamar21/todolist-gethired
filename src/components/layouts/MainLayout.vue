@@ -10,7 +10,5 @@
   <div class="container py-20 ">
     <slot/>
   </div>
-  <div data-cy="modal-information">
-    <Alert v-show="alertMessage"/>
-  </div>
+  <Alert v-show="alertMessage" data-cy="modal-information"/>
 </template>

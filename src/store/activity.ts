@@ -3,13 +3,12 @@ import { ref } from "vue";
 import { Activity, ActivityResponse } from "@/interface";
 import { BASE_URL, clearModal, state } from "@/store";
 
-const ACTIVITY_URL = BASE_URL + '/activity-groups/'
+export const ACTIVITY_URL = BASE_URL + '/activity-groups/'
 
 export const activities = ref<Activity[]>([])
 
 export const getActivities = async () => {
-  const { data }: { data: ActivityResponse } = await axios.get(ACTIVITY_URL)
-  activities.value = data.data
+  
 }
 
 export const addActivity = (data: { title: string }) => {
