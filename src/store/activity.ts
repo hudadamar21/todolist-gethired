@@ -38,10 +38,8 @@ export const updateActivity = (id: string, data: any) => {
 }
 
 export const removeActivity = async () => {
-  if(state.modalData.activityId) {
-    await axios.delete(ACTIVITY_URL + state.modalData.activityId)
-    state.alertMessage = 'Activity berhasil dihapus'
-    clearModal()
-    getActivities()
-  }
+  await axios.delete(ACTIVITY_URL + state.modalData.activityId)
+  state.alertMessage = 'Activity berhasil dihapus'
+  clearModal()
+  getActivities()
 }

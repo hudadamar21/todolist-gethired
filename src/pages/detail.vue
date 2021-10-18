@@ -62,30 +62,35 @@
         <router-link to="/" data-cy="todo-back-button">
           <ArrowLeft/>
         </router-link>
-        <h2 @click="editTitleModeOn" v-if="!isEditTitle" class="text-4xl font-bold" data-cy="todo-title">
-          {{ title }}
-        </h2>
+        <div data-cy="todo-title">
+          <h2 @click="editTitleModeOn" v-show="!isEditTitle" class="text-4xl font-bold" >
+            {{ title }}
+          </h2>
+        </div>
         <input 
-          v-else
+          v-show="isEditTitle"
           type="text"
           v-click-outside="handleEditTitle"
           v-model="title"
           class="text-4xl font-bold bg-transparent focus:outline-none border-b border-transparen border-gray-500 w-[80%]"
-        >
+        />
         <button @click="isEditTitle ? handleEditTitle : editTitleModeOn" data-cy="todo-title-edit-button">
           <EditIcon class="w-7 h-7"/>
         </button>
       </div>
       <div class="flex items-center gap-5">
-        <TodoSorter v-if="listTodo?.length !== 0"/>
-        <AppButton 
+        <div data-cy="todo-sort-button">
+          <TodoSorter v-show="listTodo?.length !== 0"/>
+        </div>
+        <div data-cy="todo-add-button">
+          <AppButton 
           class="bg-primary focus:ring-4 ring-primary/30" 
           @click="openAddModal"
-          data-cy="todo-add-button"
         >
           <PlusIcon/>
           Tambah
         </AppButton>
+        </div>
       </div>
     </AppNavbar>
     <div data-cy="todo-empty-state">
