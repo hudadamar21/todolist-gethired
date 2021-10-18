@@ -2,8 +2,24 @@
 import { toRefs } from "vue";
 import { state } from "@/store";
 const emit = defineEmits(['cancel', 'delete'])
-
 const { modalData } = toRefs(state)
+import { removeActivity } from "@/store/activity";
+import { deleteTodo } from "@/store/listItem";
+
+const props = defineProps<{
+  modalName: string
+}>()
+
+const handleDelete = () => {
+  if(props.modalName === 'activity') {
+    removeActivity()
+  } else if(props.modalName === 'todo') {
+    deleteTodo()
+  } else {
+    console.log('error when delete');
+  }
+}
+
 </script>
 
 <template>
@@ -24,7 +40,7 @@ const { modalData } = toRefs(state)
         <AppButton 
           data-cy="modal-delete-confirm-button"
           class="w-1/2 flex justify-center bg-primary-red focus:ring-4 ring-primary-red/30" 
-          @click="emit('delete')"
+          @click="handleDelete"
         >
           Hapus
         </AppButton>

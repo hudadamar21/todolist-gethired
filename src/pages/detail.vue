@@ -1,15 +1,12 @@
 <script setup lang="ts">
   import { onBeforeMount, ref, toRefs, watch, computed } from "vue";
   import { useRoute, useRouter } from "vue-router";
-  import { ActivityDetail, ListItem } from "@/interface";
+  import { ActivityDetail } from "@/interface";
   import { state } from "@/store";
   import { updateActivity } from "@/store/activity";
   import { 
     getListItems, 
-    listItemData, 
-    updateTodo,
-    deleteTodo,
-    updateListItemState,
+    listItemData,
     editedTodo
   } from "@/store/listItem";
 
@@ -88,8 +85,8 @@
         </AppButton>
       </div>
     </AppNavbar>
-    <div v-if="listTodo?.length === 0" data-cy="todo-empty-state" class="grid place-items-center" >
-      <TodoEmptyState/>
+    <div v-if="listTodo?.length === 0" class="grid place-items-center" >
+      <img src="@/assets/images/todo-empty-state.svg" alt="todo-empty-state" data-cy="todo-empty-state">
     </div>
     <div v-if="listTodo" class="grid gap-3">
       <TodoItem
@@ -99,11 +96,11 @@
       />
     </div>
     <DeleteModal
-      v-show="deleteModalOpen"
+      v-if="deleteModalOpen"
+      modalName="todo"
       @cancel="deleteModalOpen = false"
-      @delete="deleteTodo"
     />
-    <AddItemModal v-show="addItemModal"/>
-    <EditItemModal v-show="todoId" />
+    <AddItemModal v-if="addItemModal"/>
+    <EditItemModal v-if="todoId" />
   </MainLayout>
 </template>

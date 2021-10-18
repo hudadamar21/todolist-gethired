@@ -40,9 +40,10 @@
       <SortIcon/>
     </button>
     <ul v-show="dropdownOpen" v-click-outside="closeDropdown" class="absolute top-full w-56 bg-white rounded-xl py-2 mt-2 shadow-lg border" >
-      <li
+      <a
         v-for="sort of sortes"
         :key="sort.name"
+        role="button"
         data-cy="sort-selection"
         @click="handleSelect(sort.name)"
         class="relative px-5 py-4 flex items-center gap-2 hover:bg-primary/10 cursor-pointer"
@@ -55,7 +56,7 @@
             class="absolute top-1/2 -translate-y-1/2 right-5 text-black/40"
           />
         </div>
-      </li>
+      </a>
     </ul>
   </div>
 </template>

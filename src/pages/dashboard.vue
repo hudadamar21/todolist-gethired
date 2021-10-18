@@ -45,8 +45,8 @@
     </main>
     <DeleteModal
       v-if="deleteModalOpen"
+      modalName="activity"
       @cancel="deleteModalOpen = false"
-      @delete="removeActivity"
     />
   </MainLayout>
 </template>

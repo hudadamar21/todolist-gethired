@@ -14,6 +14,8 @@ const props = defineProps<{
 }>()
 
 const handleDelete = () => {
+  console.log('asd');
+  
   state.deleteModalOpen = true
   state.modalData = {
     title: props.title,

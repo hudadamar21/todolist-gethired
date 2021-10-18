@@ -19,8 +19,8 @@ const handleClick = (e: any) => {
 
 <template>
   <router-link 
-    data-cy="activity-item"
     :to="`/detail/${id}`" 
+    data-cy="activity-item"
     class="flex flex-col justify-between bg-white h-60 rounded-xl shadow-lg p-5"
   >
     <h3 data-cy="activity-item-title" class="text-xl font-bold overflow-hidden" >
