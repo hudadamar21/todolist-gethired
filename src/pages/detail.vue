@@ -34,15 +34,14 @@
     addItemModal.value = true
   }
 
+  const editTitleModeOn = (e: any) => {
+    e.stopPropagation()
+    isEditTitle.value = true
+  }
+
   const handleEditTitle = () => {
     updateActivity(route.params.id as string, { title: title.value })
     isEditTitle.value = false
-  }
-
-  const handleUpdateActive = ({ id, is_active }:{ id: number, is_active: number }) => {
-    updateTodo(id.toString(), { is_active }).then(data => {
-      updateListItemState(data as ListItem, 'is_active')
-    })
   }
 
   onBeforeMount(() => {
@@ -63,20 +62,18 @@
         <router-link to="/" data-cy="todo-back-button">
           <ArrowLeft/>
         </router-link>
-        <h2 v-if="!isEditTitle" class="text-4xl font-bold" data-cy="todo-title">
+        <h2 @click="editTitleModeOn" v-if="!isEditTitle" class="text-4xl font-bold" data-cy="todo-title">
           {{ title }}
         </h2>
         <input 
           v-else
           type="text"
+          v-click-outside="handleEditTitle"
           v-model="title"
           class="text-4xl font-bold bg-transparent focus:outline-none border-b border-transparen border-gray-500 w-[80%]"
         >
-        <button v-if="!isEditTitle" @click="isEditTitle = true" data-cy="todo-title-edit-button">
+        <button @click="isEditTitle ? handleEditTitle : editTitleModeOn" data-cy="todo-title-edit-button">
           <EditIcon class="w-7 h-7"/>
-        </button>
-        <button v-else @click="handleEditTitle">
-          <CheckIcon class="text-primary w-7 h-7"/>
         </button>
       </div>
       <div class="flex items-center gap-5">
@@ -99,7 +96,6 @@
         v-for="todo of listTodo"
         :key="todo.id"      
         v-bind="todo"
-        @toggleActive="handleUpdateActive"
       />
     </div>
     <DeleteModal

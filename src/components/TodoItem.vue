@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
 import { state } from "@/store";
 import { getEditedTodo } from "@/store/listItem";
 import { Priority } from "@/types";
+import { ListItem } from "@/interface";
+import { updateTodo, updateListItemState } from "@/store/listItem";
 
 const props = defineProps<{
   id: number,
@@ -12,16 +13,18 @@ const props = defineProps<{
   priority: Priority
 }>()
 
-const handleEdit = () => {
-  getEditedTodo(props.id.toString())
-}
-
 const handleDelete = () => {
   state.deleteModalOpen = true
   state.modalData = {
     title: props.title,
     todoId: props.id
   }
+}
+
+const handleUpdateActive = ({ id, is_active }:{ id: number, is_active: number }) => {
+  updateTodo(id.toString(), { is_active }).then(data => {
+    updateListItemState(data as ListItem, 'is_active')
+  })
 }
   
 </script>
@@ -31,7 +34,7 @@ const handleDelete = () => {
   >
     <div class="flex items-center gap-5">
       <button
-        @click="$emit('toggleActive', { id, is_active: is_active ? 0 : 1})"
+        @click="handleUpdateActive({ id, is_active: is_active ? 0 : 1})"
         class="w-7 h-7 border-2  grid place-items-center text-white" 
         :class="is_active ? 'bg-primary border-white' : 'border-gray-300'"
         data-cy="todo-item-checkbox"
@@ -46,7 +49,7 @@ const handleDelete = () => {
       >
         {{ title }}
       </p>
-      <button @click="handleEdit" data-cy="todo-item-edit-button">
+      <button @click="getEditedTodo(props.id.toString())" data-cy="todo-item-edit-button">
         <EditIcon class="w-6 h-6" />
       </button>
     </div>

@@ -44,14 +44,15 @@
         v-for="sort of sortes" 
         :key="sort.name"
         @click="handleSelect(sort.name)"
-        class="px-5 py-4 flex items-center gap-2 justify-between hover:bg-primary/10 cursor-pointer"
-        data-cy="sort-selection"
+        class="relative px-5 py-4 flex items-center gap-2 hover:bg-primary/10 cursor-pointer"
+        :data-cy="sort.name === selectedSort ? 'sort-selection-selected' : 'sort-selection'"
       >
-        <div class="flex items-center gap-2">
-          <img :src="sort.icon" :alt="sort.name" data-cy="sort-selection-icon">
-          <p data-cy="sort-selection-title">{{ sort.name }}</p>
-        </div>
-        <CheckIcon v-if="sort.name === selectedSort"  class="text-black/40" data-cy="sort-selection-selected"/>
+        <img :src="sort.icon" :alt="sort.name" data-cy="sort-selection-icon">
+        <span class="self-start" data-cy="sort-selection-title">{{ sort.name }}</span>
+        <CheckIcon
+          v-if="sort.name === selectedSort" 
+          class="absolute top-1/2 -translate-y-1/2 right-5 text-black/40" 
+        />
       </li>
     </ul>
   </div>
