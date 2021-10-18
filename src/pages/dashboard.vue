@@ -41,10 +41,12 @@
         />
       </div>
     </main>
-    <DeleteModal
-      v-show="deleteModalOpen"
-      @cancel="deleteModalOpen = false"
-      @delete="removeActivity"
-    />
+    <div data-cy="modal-delete">
+      <DeleteModal
+        v-show="deleteModalOpen"
+        @cancel="deleteModalOpen = false"
+        @delete="removeActivity"
+      />
+    </div>
   </MainLayout>
 </template>

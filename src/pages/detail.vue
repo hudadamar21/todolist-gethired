@@ -88,22 +88,32 @@
         </AppButton>
       </div>
     </AppNavbar>
-    <div v-if="listTodo?.length === 0" class="grid place-items-center" data-cy="todo-empty-state">
-      <TodoEmptyState/>
+    <div data-cy="todo-empty-state">
+      <div v-if="listTodo?.length === 0" class="grid place-items-center" >
+        <TodoEmptyState/>
+      </div>
     </div>
-    <div v-else class="grid gap-3">
-      <TodoItem
-        v-for="todo of listTodo"
-        :key="todo.id"      
-        v-bind="todo"
+    <div data-cy="todo-item">
+      <div v-if="listTodo" class="grid gap-3">
+        <TodoItem
+          v-for="todo of listTodo"
+          :key="todo.id"      
+          v-bind="todo"
+        />
+      </div>
+    </div>
+    <div data-cy="modal-delete">
+      <DeleteModal
+        v-show="deleteModalOpen"
+        @cancel="deleteModalOpen = false"
+        @delete="deleteTodo"
       />
     </div>
-    <DeleteModal
-      v-show="deleteModalOpen"
-      @cancel="deleteModalOpen = false"
-      @delete="deleteTodo"
-    />
-    <AddItemModal v-if="addItemModal"/>
-    <EditItemModal v-if="todoId" />
+    <div data-cy="modal-add">
+      <AddItemModal v-show="addItemModal"/>
+    </div>
+    <div data-cy="modal-add">
+      <EditItemModal v-show="todoId" />
+    </div>
   </MainLayout>
 </template>

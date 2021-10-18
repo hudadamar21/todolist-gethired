@@ -14,7 +14,6 @@
     <div 
       v-click-outside="closeAlert" 
       class="w-[500px] bg-white flex items-center gap-5 p-5 rounded-2xl shadow-lg"
-      dat-cy="modal-information"  
     >
       <img src="@/assets/icons/alert.svg" alt="alert-icon" data-cy="modal-information-icon">
       <p class="font-medium" data-cy="modal-information-title">{{ alertMessage }}</p>

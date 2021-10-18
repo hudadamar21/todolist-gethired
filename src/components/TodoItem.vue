@@ -30,7 +30,7 @@ const handleUpdateActive = ({ id, is_active }:{ id: number, is_active: number })
 </script>
 
 <template>
-  <div class="grid grid-flow-col items-center justify-between w-full px-7 py-7 rounded-2xl shadow-lg text-lg font-medium bg-white" data-cy="todo-item"
+  <div class="grid grid-flow-col items-center justify-between w-full px-7 py-7 rounded-2xl shadow-lg text-lg font-medium bg-white" 
   >
     <div class="flex items-center gap-5">
       <button
