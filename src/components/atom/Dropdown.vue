@@ -35,7 +35,7 @@
       </div>
       <ArrowDown/>
     </button>
-    <ul v-if="dropdownOpen" class="absolute top-full left-0 bg-white rounded-md divide-y border w-full">
+    <ul v-show="dropdownOpen" class="absolute top-full left-0 bg-white rounded-md divide-y border w-full">
       <li 
         v-for="list of lists"
         :key="list.value"

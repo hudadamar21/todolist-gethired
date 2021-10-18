@@ -29,16 +29,20 @@
       </AppButton>
     </AppNavbar>
     <main class="pt-2">
-      <div v-if="activities.length === 0" class="grid place-items-center" data-cy="activity-empty-state">
-        <ActivityEmptyState/>
+      <div data-cy="activity-empty-state">
+        <div v-if="activities.length === 0" class="grid place-items-center" >
+          <ActivityEmptyState/>
+        </div>
       </div>
-      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-        <ActivityCard 
-          v-for="activity of activities"
-          :key="activity.id"
-          v-bind="activity"
-          class="mb-3"
-        />
+      <div data-cy="activity-item">
+        <div v-if="activities" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <ActivityCard 
+            v-for="activity of activities"
+            :key="activity.id"
+            v-bind="activity"
+            class="mb-3"
+          />
+        </div>
       </div>
     </main>
     <div data-cy="modal-delete">

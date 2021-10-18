@@ -46,7 +46,7 @@ const submitTodo = () => {
           <CrossIcon />
         </button>
       </header>
-      <main class="p-8 grid gap-5">
+      <form class="p-8 grid gap-5">
         <div>
           <label class="block font-medium mb-3" for="nama" data-cy="modal-add-name-title">
             Nama List Item
@@ -71,7 +71,7 @@ const submitTodo = () => {
             />
           </div>
         </div>
-      </main>
+      </form>
       <footer class="px-8 py-6 border-t flex justify-end">
         <AppButton
           @click="submitTodo"

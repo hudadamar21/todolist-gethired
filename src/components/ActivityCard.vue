@@ -21,7 +21,6 @@ const handleClick = (e: any) => {
   <router-link 
     :to="`/detail/${id}`" 
     class="flex flex-col justify-between bg-white h-60 rounded-xl shadow-lg p-5 "
-    data-cy="activity-item"
   >
     <h3 class="text-xl font-bold overflow-hidden" data-cy="activity-item-title">
       {{ title }}
