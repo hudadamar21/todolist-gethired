@@ -19,7 +19,7 @@ const handleDelete = () => {
   state.deleteModalOpen = true
   state.modalData = {
     title: props.title,
-    todoId: props.id
+    todoId: props.id.toString()
   }
 }
 

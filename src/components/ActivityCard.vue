@@ -12,7 +12,7 @@ const handleClick = (e: any) => {
   state.deleteModalOpen = true
   state.modalData = {
     title: props.title,
-    activityId: props.id
+    activityId: props.id.toString()
   }
 }
 </script>

@@ -86,7 +86,7 @@ export const deleteTodo = async () => {
   if(state.modalData.todoId) {
     await axios.delete(`${BASE_URL}/todo-items/${state.modalData.todoId}`)
     const newData = listItemData.value?.todo_items
-      .filter(item => item.id !== state.modalData.todoId)
+      .filter(item => item.id.toString() !== state.modalData.todoId)
     // @ts-ignore
     listItemData.value.todo_items = newData
     state.alertMessage = 'Todo berhasil dihapus'
