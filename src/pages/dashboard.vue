@@ -1,18 +1,22 @@
 <script setup lang="ts">
   import { toRefs, onMounted } from "vue";
+  import axios from "axios";
   import { state } from "@/store";
-  import { getActivities, activities, addActivity } from "@/store/activity";
-
+  import { activities } from "@/store/activity";
   const { deleteModalOpen } = toRefs(state)
 
   onMounted(() => {
-    getActivities().then(data => {
+    axios.get("https://todo.api.devcode.gethired.id/activity-groups?email=hudadamar21@gmail.com")
+    .then((data: any) => {
       activities.value = data.data.data
     })
   })
 
   const createActivity = () => {
-    addActivity('New Activity').then(data => {
+    axios.post("https://todo.api.devcode.gethired.id/activity-groups", {
+      title: 'New Activity', 
+      email: 'hudadamar21@gmail.com'
+    }).then((data: any) => {
       activities.value.unshift(data.data)
     })
   }

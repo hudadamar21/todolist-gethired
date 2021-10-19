@@ -3,8 +3,9 @@ import { toRefs } from "vue";
 const emit = defineEmits(['cancel', 'delete'])
 import { clearModal, state } from "@/store";
 const { modalData } = toRefs(state)
-import { activities, deleteActivity, getActivities } from "@/store/activity";
+import { activities } from "@/store/activity";
 import { deleteTodo } from "@/store/listItem";
+import axios from "axios";
 
 const props = defineProps<{
   modalName: string
@@ -13,7 +14,8 @@ const props = defineProps<{
 const handleDelete = async () => {
   if(props.modalName === 'activity') {
     if(modalData.value.activityId){
-      deleteActivity(modalData.value.activityId).then(data => {
+      axios.delete(`https://todo.api.devcode.gethired.id/activity-groups/${modalData.value.activityId}`)
+      .then(() => {
         state.alertMessage = 'Activity berhasil dihapus'
         activities.value = activities.value
           .filter(ac => ac.id.toString() != modalData.value.activityId)
