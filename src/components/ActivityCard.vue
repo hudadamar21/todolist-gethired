@@ -1,10 +1,28 @@
 <script setup lang="ts">
+import { ListItem } from "@/interface";
 import { state } from "@/store";
+import { activityTitle, showDetailActivity } from "@/store/activity";
+import { listItemData } from "@/store/listItem";
+import { useRouter } from "vue-router";
 const props = defineProps<{
   id: number,
   title: string,
   created_at: string
 }>()
+
+const router = useRouter()
+
+function openDetail() {
+  showDetailActivity(props.id).then(data => {
+    activityTitle.value = data.data.title
+    console.log(data.data);
+    listItemData.value = data.data.todo_items as ListItem
+    router.push(`/detail/${props.id}`)
+  })
+  .catch(er => {
+    console.log(er);
+  })
+}
 
 const handleClick = (e: any) => {
   e.preventDefault()
@@ -18,8 +36,8 @@ const handleClick = (e: any) => {
 </script>
 
 <template>
-  <router-link 
-    :to="`/detail/${id}`" 
+  <div 
+    @click="openDetail"
     data-cy="activity-item"
     class="flex flex-col justify-between bg-white h-60 rounded-xl shadow-lg p-5"
   >
@@ -38,5 +56,5 @@ const handleClick = (e: any) => {
         <TrashIcon/>
       </button>
     </div>
-  </router-link>
+  </div>
 </template>

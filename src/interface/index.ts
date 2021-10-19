@@ -22,10 +22,3 @@ export interface ListItem {
   updated_at?: string
 }
 
-export interface ActivityDetail {
-  id: number,
-  title: string,
-  created_at: string,
-  todo_items: ListItem[]
-}
-

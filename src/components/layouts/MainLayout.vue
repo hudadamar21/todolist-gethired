@@ -1,6 +1,8 @@
 <script setup lang="ts">
   import { state } from "@/store";
   import { toRefs } from "vue";
+import AppHeader from "../AppHeader.vue";
+import Alert from "../atom/Alert.vue";
 
   const { alertMessage } = toRefs(state)
 </script>

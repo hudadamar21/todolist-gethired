@@ -1,14 +1,4 @@
 <script setup lang="ts">
-  import { onBeforeMount, ref, toRefs, watch, computed } from "vue";
-  import { useRoute, useRouter } from "vue-router";
-  import { ActivityDetail } from "@/interface";
-  import { state } from "@/store";
-  import { updateActivity } from "@/store/activity";
-  import { 
-    getListItems, 
-    listItemData,
-    editedTodo
-  } from "@/store/listItem";
 import AddItemModal from "@/components/AddItemModal.vue";
 import EditItemModal from "@/components/EditItemModal.vue";
 import MainLayout from "@/components/layouts/MainLayout.vue";
@@ -18,45 +8,47 @@ import AppButton from "@/components/atom/AppButton.vue";
 import TodoItem from "@/components/TodoItem.vue";
 import DeleteModal from "@/components/DeleteModal.vue";
 
-  const { deleteModalOpen, addItemModal } = toRefs(state)
+import { ref, toRefs, watch } from "vue";
+import { useRoute } from "vue-router";
+import { state } from "@/store";
+import { updateActivity, activityTitle } from "@/store/activity";
+import { 
+  listItemData,
+  editedTodo,
+  deleteTodo
+} from "@/store/listItem";
 
-  const todoId = ref('')
+const { deleteModalOpen, addItemModal } = toRefs(state)
 
-  const listTodo = computed(() => listItemData.value?.todo_items)
+const todoId = ref('')
 
-  watch(() => editedTodo.value.todoId, (newval) => {
-    todoId.value = newval
-  })
+watch(() => editedTodo.value.todoId, (newval) => {
+  todoId.value = newval
+})
 
-  const route = useRoute()
-  const router = useRouter()
+const route = useRoute()
 
-  const title = ref<string>()
-  const isEditTitle = ref(false)
+const title = ref<string>(activityTitle.value)
+const isEditTitle = ref(false)
 
-  const openAddModal = (e: any) => {
-    e.stopPropagation()
-    addItemModal.value = true
-  }
+const openAddModal = (e: any) => {
+  e.stopPropagation()
+  addItemModal.value = true
+}
 
-  const editTitleModeOn = (e: any) => {
-    e.stopPropagation()
-    isEditTitle.value = true
-  }
+const editTitleModeOn = (e: any) => {
+  e.stopPropagation()
+  isEditTitle.value = true
+}
 
-  const handleEditTitle = () => {
-    updateActivity(route.params.id as string, { title: title.value })
-    isEditTitle.value = false
-  }
+const handleEditTitle = () => {
+  updateActivity(route.params.id as string, { title: title.value })
+  isEditTitle.value = false
+}
 
-  onBeforeMount(() => {
-    getListItems(route.params.id as string)
-      .then((data) => title.value = (data as ActivityDetail).title)
-      .catch(() => {
-        console.log('activity tidak ditemukan');
-        router.push('/')
-      })
-  })
+function handleDelete() {
+  deleteTodo()
+}
 
 </script> 
 
@@ -93,12 +85,12 @@ import DeleteModal from "@/components/DeleteModal.vue";
         </AppButton>
       </div>
     </AppNavbar>
-    <div v-if="listTodo?.length === 0" class="grid place-items-center" >
+    <div v-if="listItemData?.length === 0" class="grid place-items-center" >
       <img src="@/assets/images/todo-empty-state.svg" alt="todo-empty-state" data-cy="todo-empty-state">
     </div>
-    <div v-if="listTodo" class="grid gap-3">
+    <div v-if="listItemData" class="grid gap-3">
       <TodoItem
-        v-for="todo of listTodo"
+        v-for="todo of listItemData"
         :key="todo.id"      
         :title="todo.title"
         :id="todo.id"
@@ -112,6 +104,7 @@ import DeleteModal from "@/components/DeleteModal.vue";
       v-if="deleteModalOpen"
       modalName="todo"
       @cancel="deleteModalOpen = false"
+      @delete="handleDelete"
     />
     <AddItemModal v-if="addItemModal"/>
     <EditItemModal v-if="todoId" />

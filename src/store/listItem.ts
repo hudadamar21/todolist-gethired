@@ -4,10 +4,10 @@ import axios from "axios";
 import sortArray from "sort-array";
 
 import { BASE_URL, state, clearModal } from "@/store";
-import { ActivityDetail, ListItem,  } from "@/interface";
+import { ListItem } from "@/interface";
 import { priorityList } from "@/data";
 
-export const listItemData = ref<ActivityDetail>()
+export const listItemData = ref<ListItem>()
 export const editedTodo = ref({
   todoId: '',
   title: '',
@@ -22,35 +22,14 @@ export const clearEditedTodo = () => {
   }
 }
 
-export const getListItems =  (id: string) => {
-  return new Promise( async (resolve, reject) => {
-    try {
-      const res = await axios.get(`${BASE_URL}/activity-groups/${id}`)
-      listItemData.value = res.data as ActivityDetail
-      resolve(listItemData.value)
-    } catch (error) {
-      reject(error)
-    }
-  })
-}
-
 interface ItemData { 
   title: string, 
   priority: string, 
   is_active: number, 
   activity_group_id: number 
 }
-export const createTodo = (itemData: ItemData) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const res = await axios.post(`${BASE_URL}/todo-items`, itemData)
-      listItemData.value?.todo_items.unshift(res.data as ListItem)
-      resolve(res.data)
-      state.alertMessage = 'Todo berhasil dibuat'
-    } catch (error) {
-      reject(error)
-    }
-  })
+export const createTodo = async (itemData: ItemData): Promise<any> => {
+  return await axios.post(`${BASE_URL}/todo-items`, itemData)
 }
 
 export const getEditedTodo = async (id: string) => {
@@ -78,17 +57,16 @@ export const updateTodo = async (id: string, data: object) => {
 export const deleteTodo = async () => {
   if(state.modalData.todoId) {
     await axios.delete(`${BASE_URL}/todo-items/${state.modalData.todoId}`)
-    const newData = listItemData.value?.todo_items
-      .filter(item => item.id.toString() !== state.modalData.todoId)
+    const newData = listItemData.value?.filter((item: any) => item.id.toString() !== state.modalData.todoId)
     // @ts-ignore
-    listItemData.value.todo_items = newData
+    listItemData.value = newData
     state.alertMessage = 'Todo berhasil dihapus'
     clearModal()
   }
 }
 
 export const updateListItemState = (data: ListItem, property: string) => {
-  listItemData.value?.todo_items.forEach(item => {
+  listItemData.value?.forEach((item: any) => {
     if(item.id === data.id) {
       item[property] = data[property]
       return
