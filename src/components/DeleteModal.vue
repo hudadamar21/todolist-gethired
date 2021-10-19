@@ -7,7 +7,7 @@ const { modalData } = toRefs(state)
 </script>
 
 <template>
-  <div class="fixed inset-0 z-50 bg-black/40 grid place-items-center">
+  <div data-cy="modal-delete" class="fixed inset-0 z-50 bg-black/40 grid place-items-center">
     <div class="w-[500px] p-10 grid place-items-center gap-10 bg-white shadow-lg rounded-2xl">
       <div data-cy="modal-delete-icon"><DangerIcon/></div>
       <p class="text-xl w-full text-center" data-cy="modal-delete-title">

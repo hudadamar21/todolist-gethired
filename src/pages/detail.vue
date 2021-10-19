@@ -1,15 +1,13 @@
 <script setup lang="ts">
   import { onBeforeMount, ref, toRefs, watch, computed } from "vue";
   import { useRoute, useRouter } from "vue-router";
-  import { ActivityDetail, ListItem } from "@/interface";
+  import { ActivityDetail } from "@/interface";
   import { state } from "@/store";
   import { updateActivity } from "@/store/activity";
   import { 
     getListItems, 
     listItemData, 
-    updateTodo,
     deleteTodo,
-    updateListItemState,
     editedTodo
   } from "@/store/listItem";
 
@@ -62,11 +60,9 @@
         <router-link to="/" data-cy="todo-back-button">
           <ArrowLeft/>
         </router-link>
-        <div data-cy="todo-title">
-          <h2 @click="editTitleModeOn" v-show="!isEditTitle" class="text-4xl font-bold" >
-            {{ title }}
-          </h2>
-        </div>
+        <h2 data-cy="todo-title" @click="editTitleModeOn" v-show="!isEditTitle" class="text-4xl font-bold" >
+          {{ title }}
+        </h2>
         <input 
           v-show="isEditTitle"
           type="text"
@@ -79,46 +75,32 @@
         </button>
       </div>
       <div class="flex items-center gap-5">
-        <div data-cy="todo-sort-button">
-          <TodoSorter v-show="listTodo?.length !== 0"/>
-        </div>
-        <div data-cy="todo-add-button">
-          <AppButton 
+        <TodoSorter v-show="listTodo?.length !== 0"/>
+        <AppButton 
+          data-cy="todo-add-button"
           class="bg-primary focus:ring-4 ring-primary/30" 
           @click="openAddModal"
         >
           <PlusIcon/>
           Tambah
         </AppButton>
-        </div>
       </div>
     </AppNavbar>
-    <div data-cy="todo-empty-state">
-      <div v-if="listTodo?.length === 0" class="grid place-items-center" >
-        <TodoEmptyState/>
-      </div>
+    <div data-cy="todo-empty-state" v-if="listTodo?.length === 0" class="grid place-items-center" >
+      <img src="@/assets/images/TodoEmptyState.svg" alt="Todo Empty State">
     </div>
-    <div data-cy="todo-item">
-      <div v-if="listTodo" class="grid gap-3">
-        <TodoItem
-          v-for="todo of listTodo"
-          :key="todo.id"      
-          v-bind="todo"
-        />
-      </div>
-    </div>
-    <div data-cy="modal-delete">
-      <DeleteModal
-        v-show="deleteModalOpen"
-        @cancel="deleteModalOpen = false"
-        @delete="deleteTodo"
-      />
-    </div>
-    <div data-cy="modal-add">
-      <AddItemModal v-show="addItemModal"/>
-    </div>
-    <div data-cy="modal-add">
-      <EditItemModal v-show="todoId" />
-    </div>
+    <TodoItem
+      v-if="listTodo" class="mb-3"
+      v-for="todo of listTodo"
+      :key="todo.id"      
+      v-bind="todo"
+    />
+    <DeleteModal
+      v-show="deleteModalOpen"
+      @cancel="deleteModalOpen = false"
+      @delete="deleteTodo"
+    />
+    <AddItemModal v-show="addItemModal"/>
+    <EditItemModal v-show="todoId" />
   </MainLayout>
 </template>

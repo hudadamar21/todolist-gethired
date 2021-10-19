@@ -36,7 +36,7 @@ const submitTodo = () => {
 </script>
 
 <template>
-  <div class="fixed inset-0 z-50 bg-black/50 grid justify-center items-start pt-14 overflow-auto">
+  <div data-cy="modal-add" class="fixed inset-0 z-50 bg-black/50 grid justify-center items-start pt-14 overflow-auto">
     <div v-click-outside="closeModal" ref="elAddItemModal" class="rounded-2xl w-[850px] bg-white">
       <header class="flex items-center justify-between px-8 py-6 w-full border-b">
         <h1 class="text-xl font-semibold" data-cy="modal-add-title">

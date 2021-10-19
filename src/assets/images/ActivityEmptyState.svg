@@ -1,5 +1,4 @@
-<template>
-  <div data-cy="activity-empty-state">
+
     <svg width="767" height="490" viewBox="0 0 767 490" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_2:147)">
     <path d="M183.552 477.666H194.54L199.767 435.332L183.551 435.333L183.552 477.666Z" fill="#A0616A"/>
@@ -35,5 +34,3 @@
     </clipPath>
     </defs>
     </svg>
-  </div>
-</template>

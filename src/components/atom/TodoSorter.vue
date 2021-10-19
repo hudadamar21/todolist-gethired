@@ -36,26 +36,26 @@
 
 <template>
   <div class="relative">
-    <button @click="openDropdown" class="h-12 w-12 rounded-full grid place-items-center border border-gray-300">
+    <button data-cy="todo-sort-button" @click="openDropdown" class="h-12 w-12 rounded-full grid place-items-center border border-gray-300" >
       <SortIcon/>
     </button>
-    <div data-cy="sort-parent">
-      <ul v-show="dropdownOpen" v-click-outside="closeDropdown" class="absolute top-full w-56 bg-white rounded-xl py-2 mt-2 shadow-lg border" >
-        <li
-          v-for="sort of sortes"
-          :key="sort.name"
-          @click="handleSelect(sort.name)"
-          class="relative px-5 py-4 flex items-center gap-2 hover:bg-primary/10 cursor-pointer"
-          :data-cy="sort.name === selectedSort ? 'sort-selection-selected' : 'sort-selection'"
-        >
-          <img :src="sort.icon" :alt="sort.name" data-cy="sort-selection-icon">
+    <ul data-cy="sort-parent" v-show="dropdownOpen" v-click-outside="closeDropdown" class="absolute top-full w-56 bg-white rounded-xl py-2 mt-2 shadow-lg border" >
+      <li
+        v-for="sort of sortes"
+        :key="sort.name"
+        @click="handleSelect(sort.name)"
+        class="relative px-5 py-4 flex items-center gap-2 hover:bg-primary/10 cursor-pointer"
+        data-cy="sort-selection"
+      >
+        <div :data-cy="sort.name === selectedSort ? 'sort-selection-selected' : false">
+          <img  :src="sort.icon" :alt="sort.name" data-cy="sort-selection-icon">
           <span class="self-start" data-cy="sort-selection-title">{{ sort.name }}</span>
           <CheckIcon
             v-show="sort.name === selectedSort"
             class="absolute top-1/2 -translate-y-1/2 right-5 text-black/40"
           />
-        </li>
-      </ul>
-    </div>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>

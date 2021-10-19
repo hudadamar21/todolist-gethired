@@ -13,12 +13,14 @@ const props = defineProps<{
   priority: Priority
 }>()
 
-const handleDelete = () => {
+const handleDelete = (e: any) => {
+  e.stopPropagation()
   state.deleteModalOpen = true
   state.modalData = {
     title: props.title,
     todoId: props.id
   }
+  console.log(state)
 }
 
 const handleUpdateActive = ({ id, is_active }:{ id: number, is_active: number }) => {
@@ -30,7 +32,7 @@ const handleUpdateActive = ({ id, is_active }:{ id: number, is_active: number })
 </script>
 
 <template>
-  <div class="grid grid-flow-col items-center justify-between w-full px-7 py-7 rounded-2xl shadow-lg text-lg font-medium bg-white" 
+  <div data-cy="todo-item" class="grid grid-flow-col items-center justify-between w-full px-7 py-7 rounded-2xl shadow-lg text-lg font-medium bg-white"
   >
     <div class="flex items-center gap-5">
       <button

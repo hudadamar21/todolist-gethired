@@ -19,6 +19,7 @@ const handleClick = (e: any) => {
 
 <template>
   <router-link 
+    data-cy="activity-item" 
     :to="`/detail/${id}`" 
     class="flex flex-col justify-between bg-white h-60 rounded-xl shadow-lg p-5 "
   >
