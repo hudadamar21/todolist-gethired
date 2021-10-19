@@ -6,8 +6,8 @@ interface State {
   alertMessage: string,
   modalData: {
     title: string,
-    activityId?: number | null | undefined,
-    todoId?: number | null | undefined
+    activityId?: string,
+    todoId?: string
   }
 }
 
@@ -19,14 +19,10 @@ export const state: State = reactive({
   alertMessage: '',
   modalData: {
     title: '',
-    activityId: null,
-    todoId: null
   }
 })
 
-watch(() => state.alertMessage, (newval) => {
-  console.log(newval);
-  
+watch(() => state.alertMessage, (newval) => {  
   if(newval) {
     setTimeout(() => {
       state.alertMessage = ''
@@ -47,7 +43,5 @@ export const clearModal = () => {
   state.addItemModal = false
   state.modalData = {
     title: '',
-    activityId: null,
-    todoId: null
   }
 }

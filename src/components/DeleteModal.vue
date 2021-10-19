@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { toRefs } from "vue";
-import { state } from "@/store";
-import axios from "axios";
 const emit = defineEmits(['cancel', 'delete'])
+import { clearModal, state } from "@/store";
 const { modalData } = toRefs(state)
-import { clearModal } from "@/store";
-import { getActivities } from "@/store/activity";
+import { activities, deleteActivity, getActivities } from "@/store/activity";
 import { deleteTodo } from "@/store/listItem";
 
 const props = defineProps<{
@@ -14,12 +12,14 @@ const props = defineProps<{
 
 const handleDelete = async () => {
   if(props.modalName === 'activity') {
-    await axios.delete(
-      `https://todo.api.devcode.gethired.id/activity-groups/${state.modalData.activityId}`
-    )
-    state.alertMessage = 'Activity berhasil dihapus'
-    clearModal()
-    getActivities()
+    if(modalData.value.activityId){
+      deleteActivity(modalData.value.activityId).then(data => {
+        state.alertMessage = 'Activity berhasil dihapus'
+        activities.value = activities.value
+          .filter(ac => ac.id.toString() != modalData.value.activityId)
+        clearModal()
+      })
+    }
   } else if(props.modalName === 'todo') {
     deleteTodo()
   } else {

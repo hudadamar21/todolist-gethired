@@ -14,7 +14,6 @@ const addTodo = (newTodo: {title: string, priority: Priority}) => {
   }
   createTodo(todo).then(data => {
     clearModal()
-    
   }).catch(err => console.log(err))
 }
 

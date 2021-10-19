@@ -1,42 +1,26 @@
 import axios from "axios";
 import { ref } from "vue";
-import { Activity, ActivityResponse } from "@/interface";
-import { BASE_URL, clearModal, state } from "@/store";
+import { Activity } from "@/interface";
+import { BASE_URL } from "@/store";
 
 const ACTIVITY_URL = BASE_URL + '/activity-groups/'
 
 export const activities = ref<Activity[]>([])
 
-export const getActivities = async () => {
-  try {
-    const { data }: { data: ActivityResponse } = await axios.get("https://todo.api.devcode.gethired.id/activity-groups?huda@gmail.com”)
-    activities.value = data.data
-  } catch (error) {
-    console.log(error);
-  }
+export async function getActivities (): Promise<any> {
+  return await axios.get("https://todo.api.devcode.gethired.id/activity-groups?email=hudadamar21@gmail.com")
 }
 
-export const addActivity = (data: { title: string }) => {
-  return new Promise( async (resolve, reject) => {
-    try {
-      await axios.post(ACTIVITY_URL, data)
-      getActivities()
-    } catch(err) {
-      reject(err)
-    }
-  })
+export async function addActivity (title: string): Promise<any> {
+  return await axios.post(ACTIVITY_URL, {title, email: 'hudadamar21@gmail.com'})
 }
 
-export const updateActivity = (id: string, data: any) => {
-  return new Promise( async (resolve, reject) => {
-    try {
-      const res = await axios.patch(ACTIVITY_URL + id, data)
-      resolve(res.data)
-      getActivities()
-    } catch(err) {
-      reject(err)
-      console.log(err);
-      
-    }
-  })
+export async function updateActivity (id: string, data: any): Promise<any> {
+  return await axios.patch(ACTIVITY_URL + id, data)
+}
+
+export async function deleteActivity(id: string): Promise<any> {
+  return await axios.delete(
+    `https://todo.api.devcode.gethired.id/activity-groups/${id}`
+  )
 }

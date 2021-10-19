@@ -6,11 +6,15 @@
   const { deleteModalOpen } = toRefs(state)
 
   onMounted(() => {
-    getActivities()
+    getActivities().then(data => {
+      activities.value = data.data.data
+    })
   })
 
-  const createActivity = async () => {
-    await addActivity({ title: 'New Activity' })
+  const createActivity = () => {
+    addActivity('New Activity').then(data => {
+      activities.value.unshift(data.data)
+    })
   }
 
 </script>
@@ -31,6 +35,8 @@
       </AppButton>
     </AppNavbar>
     <main class="pt-2">
+      
+      
       <div v-if="activities.length === 0" class="grid place-items-center" >
         <img src="@/assets/images/activty-empty-state.svg" alt="activity-empty-state" data-cy="activity-empty-state">
       </div>
