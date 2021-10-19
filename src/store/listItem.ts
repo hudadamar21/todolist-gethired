@@ -5,27 +5,20 @@ import sortArray from "sort-array";
 
 import { BASE_URL, state, clearModal } from "@/store";
 import { ActivityDetail, ListItem,  } from "@/interface";
-import { Priority } from "@/types";
 import { priorityList } from "@/data";
 
 export const listItemData = ref<ActivityDetail>()
 export const editedTodo = ref({
   todoId: '',
   title: '',
-  priority: {
-    title: 'Very High',
-    value: 'very-high' 
-  } as Priority
+  priority: 'very-high'
 })
 
 export const clearEditedTodo = () => {
   editedTodo.value = {
     todoId: '',
     title: '',
-    priority: {
-      title: 'Very High',
-      value: 'very-high'
-    }
+    priority: 'very-high'
   }
 }
 
@@ -43,7 +36,7 @@ export const getListItems =  (id: string) => {
 
 interface ItemData { 
   title: string, 
-  priority: Priority, 
+  priority: string, 
   is_active: number, 
   activity_group_id: number 
 }
@@ -62,7 +55,7 @@ export const createTodo = (itemData: ItemData) => {
 
 export const getEditedTodo = async (id: string) => {
   const res: ListItem = await axios.get(`${BASE_URL}/todo-items/${id}`)
-  const priority = priorityList.filter(p => p.value === res.data.priority)[0] as Priority
+  const priority = priorityList.filter(p => p === res.data.priority)[0]
   editedTodo.value = {
     todoId: res.data.id,
     title: res.data.title,

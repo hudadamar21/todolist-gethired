@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { toRefs } from "vue";
 const emit = defineEmits(['cancel', 'delete'])
-import { clearModal, state } from "@/store";
+import { state } from "@/store";
 const { modalData } = toRefs(state)
-import { activities, deleteActivity } from "@/store/activity";
-import { deleteTodo } from "@/store/listItem";
+import AppButton from "./atom/AppButton.vue";
 
 const props = defineProps<{
   modalName: string

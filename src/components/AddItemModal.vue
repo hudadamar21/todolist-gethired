@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { createTodo } from "@/store/listItem";
 import { clearModal, state } from "@/store";
-import { Priority } from "@/types";
 import { useRoute } from "vue-router";
+import Modal from "./Modal.vue";
 
 const route = useRoute()
 
-const addTodo = (newTodo: {title: string, priority: Priority}) => {
+const addTodo = (newTodo: {title: string, priority: string}) => {
   const todo = {
     ...newTodo, 
     is_active: 0, 

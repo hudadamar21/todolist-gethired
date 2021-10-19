@@ -9,6 +9,14 @@
     listItemData,
     editedTodo
   } from "@/store/listItem";
+import AddItemModal from "@/components/AddItemModal.vue";
+import EditItemModal from "@/components/EditItemModal.vue";
+import MainLayout from "@/components/layouts/MainLayout.vue";
+import AppNavbar from "@/components/AppNavbar.vue";
+import TodoSorter from "@/components/atom/TodoSorter.vue";
+import AppButton from "@/components/atom/AppButton.vue";
+import TodoItem from "@/components/TodoItem.vue";
+import DeleteModal from "@/components/DeleteModal.vue";
 
   const { deleteModalOpen, addItemModal } = toRefs(state)
 
@@ -92,7 +100,12 @@
       <TodoItem
         v-for="todo of listTodo"
         :key="todo.id"      
-        v-bind="todo"
+        :title="todo.title"
+        :id="todo.id"
+        :is_active="todo.is_active"
+        :priority="todo.priority"
+        :activity_group_id="todo.activity_group_id"
+        :updated_at="todo.updated_at || ''"
       />
     </div>
     <DeleteModal

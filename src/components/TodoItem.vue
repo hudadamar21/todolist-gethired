@@ -1,21 +1,19 @@
 <script setup lang="ts">
 import { state } from "@/store";
 import { getEditedTodo } from "@/store/listItem";
-import { Priority } from "@/types";
 import { ListItem } from "@/interface";
 import { updateTodo, updateListItemState } from "@/store/listItem";
+import DotPriority from "./atom/DotPriority.vue";
 
 const props = defineProps<{
   id: number,
   title: string,
   activity_group_id: number,
   is_active: number | boolean,
-  priority: Priority
+  priority: string
 }>()
 
 const handleDelete = () => {
-  console.log('asd');
-  
   state.deleteModalOpen = true
   state.modalData = {
     title: props.title,

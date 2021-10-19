@@ -2,6 +2,11 @@
   import { toRefs, onMounted } from "vue";
   import { state, clearModal } from "@/store";
   import { getActivities, activities, addActivity, deleteActivity } from "@/store/activity";
+import MainLayout from "@/components/layouts/MainLayout.vue";
+import AppNavbar from "@/components/AppNavbar.vue";
+import AppButton from "@/components/atom/AppButton.vue";
+import ActivityCard from "@/components/ActivityCard.vue";
+import DeleteModal from "@/components/DeleteModal.vue";
 
   const { deleteModalOpen } = toRefs(state)
 

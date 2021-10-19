@@ -2,8 +2,8 @@
 import { watchEffect, ref } from "vue";
 import { editedTodo } from "@/store/listItem";
 import { priorityList } from "@/data";
-
-type Priority = 'very-high' | 'high' | 'normal' | 'low' | 'very-low'
+import AppButton from "./atom/AppButton.vue";
+import Dropdown from "./atom/Dropdown.vue";
 const emit = defineEmits(['submitTodo', 'close'])
 const props = defineProps<{
   modalTitle: string,
@@ -12,7 +12,7 @@ const props = defineProps<{
 const formValid = ref(false)
 const elAddItemModal = ref<Element | any>(null)
 const title = ref<string>(editedTodo.value.title || '')
-const priority = ref<Priority>(editedTodo.value.priority.value || 'very-high')
+const priority = ref<string>(editedTodo.value.priority || 'very-high')
 
 watchEffect(() => {
   if(title.value && priority.value) {
@@ -22,7 +22,7 @@ watchEffect(() => {
   }
 })
 
-const handleSelected = (value: Priority) => {
+const handleSelected = (value: string) => {
   priority.value = value
 }
 

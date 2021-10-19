@@ -2,8 +2,8 @@
 import { ListItem } from "@/interface";
 import { state } from "@/store";
 import { updateTodo, editedTodo, clearEditedTodo, getListItems } from "@/store/listItem";
-import { Priority } from "@/types";
 import { useRoute } from "vue-router";
+import Modal from "./Modal.vue";
 
 const route = useRoute()
 
@@ -11,7 +11,7 @@ const closeModal = () => {
   clearEditedTodo()
 }
 
-const submitUpdateTodo = async (newTodo: {title: string, priority: Priority}) => {
+const submitUpdateTodo = async (newTodo: {title: string, priority: string}) => {
   if(editedTodo.value.todoId) {
     try {
       await updateTodo(editedTodo.value.todoId, newTodo) as ListItem
