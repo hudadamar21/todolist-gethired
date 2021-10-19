@@ -25,8 +25,6 @@ export const state: State = reactive({
 })
 
 watch(() => state.alertMessage, (newval) => {
-  console.log(newval);
-  
   if(newval) {
     setTimeout(() => {
       state.alertMessage = ''

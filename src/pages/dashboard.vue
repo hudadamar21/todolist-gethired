@@ -1,14 +1,28 @@
 <script setup lang="ts">
-  import { toRefs, onBeforeMount } from "vue";
-  import { state } from "@/store";
-  import { getActivities, activities, addActivity, removeActivity } from "@/store/activity";
+  import { toRefs, onBeforeMount, ref } from "vue";
+  import { clearModal, state } from "@/store";
+  import { getActivities, addActivity, deleteActivity } from "@/store/activity";
 
   const { deleteModalOpen } = toRefs(state)
 
-  onBeforeMount(() => getActivities())
+  const activities = ref<any>([])
+
+  onBeforeMount(async() => {
+    const { data } = await getActivities()
+    activities.value = data.data
+  })
 
   const createActivity = async () => {
-    await addActivity({ title: 'New Activity' })
+    const data = await addActivity('New Activity')
+    activities.value.unshift(data.data)
+  }
+
+  const removeActivity = async () => {
+    await deleteActivity()
+    state.alertMessage = 'Activity berhasil dihapus'
+    clearModal()
+    const { data } = await getActivities()
+    activities.value = data.data
   }
 
 </script>
