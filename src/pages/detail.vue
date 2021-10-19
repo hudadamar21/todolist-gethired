@@ -67,14 +67,14 @@
           type="text"
           v-click-outside="handleEditTitle"
           v-model="title"
-          class="text-4xl font-bold bg-transparent focus:outline-none border-b border-transparen border-gray-500 w-[80%]"
+          class="input-text"
         />
         <button data-cy="todo-title-edit-button" @click="isEditTitle ? handleEditTitle : editTitleModeOn" >
           <EditIcon class="w-7 h-7"/>
         </button>
       </div>
       <div class="flex items-center gap-5">
-        <TodoSorter v-show="listTodo?.length !== 0"/>
+        <TodoSorter />
         <AppButton
           data-cy="todo-add-button"
           class="bg-primary focus:ring-4 ring-primary/30" 
@@ -104,3 +104,10 @@
     <EditItemModal v-if="todoId" />
   </MainLayout>
 </template>
+
+
+<style>
+  .input-text {
+    @apply text-4xl font-bold bg-transparent focus:outline-none border-b border-transparent border-gray-500 w-[80%];
+  }
+</style>

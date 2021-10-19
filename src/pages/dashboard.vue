@@ -1,23 +1,28 @@
 <script setup lang="ts">
   import { toRefs, onMounted } from "vue";
-  import axios from "axios";
-  import { state } from "@/store";
-  import { activities } from "@/store/activity";
+  import { state, clearModal } from "@/store";
+  import { getActivities, activities, addActivity, deleteActivity } from "@/store/activity";
+
   const { deleteModalOpen } = toRefs(state)
 
   onMounted(() => {
-    axios.get("https://todo.api.devcode.gethired.id/activity-groups?email=hudadamar21@gmail.com")
-    .then((data: any) => {
+    getActivities().then(data => {
       activities.value = data.data.data
     })
   })
 
   const createActivity = () => {
-    axios.post("https://todo.api.devcode.gethired.id/activity-groups", {
-      title: 'New Activity', 
-      email: 'hudadamar21@gmail.com'
-    }).then((data: any) => {
+    addActivity('New Activity').then(data => {
       activities.value.unshift(data.data)
+    })
+  }
+
+  function handleDelete() {
+    deleteActivity(state.modalData.activityId as string).then(() => {
+      state.alertMessage = 'Activity berhasil dihapus'
+      activities.value = activities.value
+        .filter(ac => ac.id.toString() != state.modalData.activityId)
+      clearModal()
     })
   }
 
@@ -39,8 +44,6 @@
       </AppButton>
     </AppNavbar>
     <main class="pt-2">
-      
-      
       <div v-if="activities.length === 0" class="grid place-items-center" >
         <img src="@/assets/images/activty-empty-state.svg" alt="activity-empty-state" data-cy="activity-empty-state">
       </div>
@@ -57,6 +60,7 @@
       v-if="deleteModalOpen"
       modalName="activity"
       @cancel="deleteModalOpen = false"
+      @delete="handleDelete"
     />
   </MainLayout>
 </template>
