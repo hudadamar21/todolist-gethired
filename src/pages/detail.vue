@@ -111,7 +111,6 @@ function handleDelete() {
   </MainLayout>
 </template>
 
-
 <style>
   .input-text {
     @apply text-4xl font-bold bg-transparent focus:outline-none border-b border-transparent border-gray-500 w-[80%];
